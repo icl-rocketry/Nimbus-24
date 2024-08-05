@@ -2,6 +2,10 @@
 from math import exp
 from rocketpy import Fluid, LiquidMotor, CylindricalTank, MassFlowRateBasedTank
 
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+os.chdir("..")
+
 # Define fluids
 ox_liq = Fluid(name="nitrous_l", density=1220)
 ox_gas = Fluid(name="nitrous_g", density=1.977)
@@ -11,7 +15,7 @@ press_liq = Fluid(name="nitrogen_l", density=807)
 press_gas = Fluid(name="nitrogen_g", density=1.251)
 
 # Define tanks geometry
-# TODO: use custom endcaps
+# TODO: use custom endcaps if the geometry is not a perfect sphere
 ox_shape = CylindricalTank(radius = 0.085, height = 0.635, spherical_caps = False)
 fuel_shape = CylindricalTank(radius = 0.085, height = 0.369, spherical_caps = False)
 press_shape = CylindricalTank(radius = 0.057, height = 0.455, spherical_caps = True)
@@ -25,7 +29,7 @@ ox_tank = MassFlowRateBasedTank(
     initial_gas_mass=0,
     liquid_mass_flow_rate_in=0,
     liquid_mass_flow_rate_out=lambda t: 7 / 5.5 - 1e-6,
-    gas_mass_flow_rate_in=0,
+    gas_mass_flow_rate_in=lambda t: (7 / 5.5) * 1.251 / 1220, # proportional to the remaining empty space in the tank
     gas_mass_flow_rate_out=0,
     liquid=ox_liq,
     gas=ox_gas,
@@ -39,7 +43,7 @@ fuel_tank = MassFlowRateBasedTank(
     initial_gas_mass=0,
     liquid_mass_flow_rate_in=0,
     liquid_mass_flow_rate_out=lambda t: 4 / 5.5 - 1e-6,
-    gas_mass_flow_rate_in=0,
+    gas_mass_flow_rate_in=lambda t: (4 / 5.5) * 1.251 / 792, # proportional to the remaining empty space in the tank
     gas_mass_flow_rate_out=0,
     liquid=fuel_liq,
     gas=fuel_gas,
@@ -60,8 +64,9 @@ press_tank = MassFlowRateBasedTank(
 )
 
 # Define motor
+# if the thrust curve is changed, define a specific impulse variable so we can calculate the mass flow rate of the propellants
 Thanos_R = LiquidMotor(
-    thrust_source="C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/OpenRocket/ThanosR.eng",
+    thrust_source="OpenRocket/ThanosR.eng",
     dry_mass=16.2, # mass of engine, not tanks!
     dry_inertia=(0.6050, 0.6094, 0.1004),
     nozzle_radius=0.025,

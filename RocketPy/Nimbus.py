@@ -1,3 +1,7 @@
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+os.chdir("..")
+
 # imports
 from rocketpy import Environment, Rocket, Flight, CompareFlights
 from Thanos import Thanos_R
@@ -17,8 +21,8 @@ Nimbus = Rocket(
     radius=0.097,
     mass=35.793,  # mass is excluding tanks and engine
     inertia=(58.1, 58.1, 0.231),
-    power_off_drag="C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/RocketPy/dragCurve.csv",
-    power_on_drag="C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/RocketPy/dragCurve.csv",
+    power_off_drag="RocketPy/dragCurve.csv",
+    power_on_drag="RocketPy/dragCurve.csv",
     center_of_mass_without_motor=4.28 - 2.3,
     coordinate_system_orientation="tail_to_nose",
 )
@@ -27,8 +31,8 @@ NimbusDescent = Rocket(
     radius=0.097,
     mass=32.793,  # mass is excluding tanks and engine
     inertia=(42.2, 42.2, 0.222),
-    power_off_drag="C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/RocketPy/dragCurve.csv",
-    power_on_drag="C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/RocketPy/dragCurve.csv",
+    power_off_drag="RocketPy/dragCurve.csv",
+    power_on_drag="RocketPy/dragCurve.csv",
     center_of_mass_without_motor=4.28 - 2.24,
     coordinate_system_orientation="tail_to_nose",
 )
@@ -68,7 +72,7 @@ canards = Nimbus.add_trapezoidal_fins(
     span=0.06,
     position=3.04,
     cant_angle=0,
-    airfoil=("C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/RocketPy/NACA0012.csv", "degrees"),
+    airfoil=("RocketPy/NACA0012.csv", "degrees"),
 )
 
 canards2 = NimbusDescent.add_trapezoidal_fins(
@@ -79,7 +83,7 @@ canards2 = NimbusDescent.add_trapezoidal_fins(
     span=0.06,
     position=3.04,
     cant_angle=0,
-    airfoil=("C:/Users/bgbg0/Desktop/ICLR/Nimbus-24/RocketPy/NACA0012.csv", "degrees"),
+    airfoil=("RocketPy/NACA0012.csv", "degrees"),
 )
 
 boattail = Nimbus.add_tail(top_radius=0.097, bottom_radius=0.076, length=0.322, position=0.322)
@@ -89,13 +93,23 @@ boattail2 = NimbusDescent.add_tail(top_radius=0.097, bottom_radius=0.076, length
 
 main = NimbusDescent.add_parachute(
     name="main",
-    cd_s=16.073,
+    cd_s=29.128,
     trigger=450,  # ejection altitude in meters
     sampling_rate=100,
     lag=0,
 )
 
 # add reefing to main parachute with a drogue
+drogue = NimbusDescent.add_parachute(
+    name="drogue",
+    cd_s=0.274,
+    trigger=1000,  # ejection altitude in meters
+    sampling_rate=100,
+    lag=0,
+)
+
+# DEBUG: draw the rocket so I can see what's going on
+Nimbus.draw()
 
 # Flights
 Ascent = Flight(rocket=Nimbus, environment=env, rail_length=10, inclination=85, heading=0, terminate_on_apogee=True, name="Ascent")
@@ -104,3 +118,8 @@ Descent = Flight(rocket=NimbusDescent, environment=env, rail_length=10, inclinat
 # Results
 comparison = CompareFlights([Ascent, Descent])
 comparison.trajectories_3d(legend=True)
+
+print("----- ASCENT INFO -----")
+Ascent.info()
+print("----- DESCENT INFO -----")
+Descent.info()
