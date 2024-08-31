@@ -58,8 +58,8 @@ fins = Nimbus.add_trapezoidal_fins(
     root_chord=0.28,
     tip_chord=0.13,
     sweep_length=0.13,
-    span=0.225,
-    position=0.32,
+    span=0.235,
+    position=0.28,
     cant_angle=0,
     radius=0.076,
 )
@@ -80,8 +80,8 @@ fins2 = NimbusDescent.add_trapezoidal_fins(
     root_chord=0.28,
     tip_chord=0.13,
     sweep_length=0.13,
-    span=0.225,
-    position=0.32,
+    span=0.235,
+    position=0.28,
     cant_angle=0,
     radius=0.076,
 )
@@ -120,7 +120,7 @@ boattail2 = NimbusDescent.add_tail(top_radius=0.097, bottom_radius=0.076, length
 
 def drogue_trigger(p, h, y):
     # activate drogue when vz < -10 m/s.
-    return True if y[5] < -10 else False
+    return True if y[5] < -10 and h < 3000 else False
 
 def main_trigger(p, h, y):
     # activate main when vz < 0 m/s and z < 800 m
@@ -157,6 +157,6 @@ comparison = CompareFlights([Ascent, Descent])
 comparison.trajectories_3d(legend=True)
 
 print("----- ASCENT INFO -----")
-Ascent.info()
+Ascent.all_info()
 print("----- DESCENT INFO -----")
 Descent.info()
