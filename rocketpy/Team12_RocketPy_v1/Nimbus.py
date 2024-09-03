@@ -7,6 +7,7 @@ from rocketpy import Environment, Rocket, Flight, CompareFlights
 from Thanos import Thanos_R
 import datetime
 
+
 # Environment
 env = Environment(latitude=39.4751, longitude=-8.3764, elevation=78)
 envtime = datetime.date.today()
