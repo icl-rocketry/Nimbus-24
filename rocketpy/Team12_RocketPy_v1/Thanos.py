@@ -78,3 +78,5 @@ Thanos_R = LiquidMotor(
 Thanos_R.add_tank(tank=ox_tank, position=0.8926)
 Thanos_R.add_tank(tank=fuel_tank, position=1.5789)
 Thanos_R.add_tank(tank=press_tank, position=2.1745)
+
+Thanos_R.all_info()
