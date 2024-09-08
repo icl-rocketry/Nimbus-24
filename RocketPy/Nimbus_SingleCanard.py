@@ -37,17 +37,6 @@ Nimbus.add_motor(Thanos_R, position=0)
 nose_cone = Nimbus.add_nose(length=0.35, kind="von karman", position=4.28)
 nose_cone2 = NimbusDescent.add_nose(length=0.35, kind="von karman", position=4.28)
 
-# fins = Nimbus.add_trapezoidal_fins(
-#     n=3,
-#     root_chord=0.322,
-#     tip_chord=0.15,
-#     sweep_length=0.1,
-#     span=0.236,
-#     position=0.32,
-#     cant_angle=0,
-#     radius=0.076,
-# )
-
 fins = Nimbus.add_trapezoidal_fins(
     n=3,
     root_chord=0.28,
@@ -58,17 +47,6 @@ fins = Nimbus.add_trapezoidal_fins(
     cant_angle=0,
     radius=0.076,
 )
-
-# fins2 = NimbusDescent.add_trapezoidal_fins(
-#     n=3,
-#     root_chord=0.322,
-#     tip_chord=0.15,
-#     sweep_length=0.1,
-#     span=0.236,
-#     position=0.32,
-#     cant_angle=0,
-#     radius=0.076,
-# )
 
 fins2 = NimbusDescent.add_trapezoidal_fins(
     n=3,
@@ -82,24 +60,24 @@ fins2 = NimbusDescent.add_trapezoidal_fins(
 )
 
 canards = Nimbus.add_trapezoidal_fins(
-    n=3,
+    n=1,
     root_chord=0.12,
     tip_chord=0.05,
     sweep_length=0.085,
     span=0.06,
     position=3.04,
-    cant_angle=0,
+    cant_angle=10,
     airfoil=("RocketPy/NACA0012.csv", "degrees"),
 )
 
 canards2 = NimbusDescent.add_trapezoidal_fins(
-    n=3,
+    n=1,
     root_chord=0.12,
     tip_chord=0.05,
     sweep_length=0.085,
     span=0.06,
     position=3.04,
-    cant_angle=0,
+    cant_angle=10,
     airfoil=("RocketPy/NACA0012.csv", "degrees"),
 )
 

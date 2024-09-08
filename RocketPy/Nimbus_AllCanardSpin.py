@@ -88,7 +88,7 @@ canards = Nimbus.add_trapezoidal_fins(
     sweep_length=0.085,
     span=0.06,
     position=3.04,
-    cant_angle=0,
+    cant_angle=10,
     airfoil=("RocketPy/NACA0012.csv", "degrees"),
 )
 
@@ -99,7 +99,7 @@ canards2 = NimbusDescent.add_trapezoidal_fins(
     sweep_length=0.085,
     span=0.06,
     position=3.04,
-    cant_angle=0,
+    cant_angle=10,
     airfoil=("RocketPy/NACA0012.csv", "degrees"),
 )
 

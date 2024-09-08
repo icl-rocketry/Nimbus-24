@@ -81,28 +81,6 @@ fins2 = NimbusDescent.add_trapezoidal_fins(
     radius=0.076,
 )
 
-canards = Nimbus.add_trapezoidal_fins(
-    n=3,
-    root_chord=0.12,
-    tip_chord=0.05,
-    sweep_length=0.085,
-    span=0.06,
-    position=3.04,
-    cant_angle=0,
-    airfoil=("RocketPy/NACA0012.csv", "degrees"),
-)
-
-canards2 = NimbusDescent.add_trapezoidal_fins(
-    n=3,
-    root_chord=0.12,
-    tip_chord=0.05,
-    sweep_length=0.085,
-    span=0.06,
-    position=3.04,
-    cant_angle=0,
-    airfoil=("RocketPy/NACA0012.csv", "degrees"),
-)
-
 boattail = Nimbus.add_tail(top_radius=0.097, bottom_radius=0.076, length=0.302, position=0.302)
 boattail2 = NimbusDescent.add_tail(top_radius=0.097, bottom_radius=0.076, length=0.302, position=0.302)
 
