@@ -30,7 +30,7 @@ env = Environment(latitude=39.4751, longitude=-8.3764, elevation=78)
 envtime = datetime.date.today()
 env.set_date((envtime.year, envtime.month, envtime.day, 12))  # UTC time
 env.set_atmospheric_model(
-    type="custom_atmosphere", wind_u=0, wind_v=8 # set positive wind_v for max drift
+    type="custom_atmosphere", wind_u=0, wind_v=8.9 # set positive wind_v for max drift
 )  # for now ive set the max allowable wind as a constant 8 m/s, this can be changed to a altitude profile or another speed
 
 # draw rocket
