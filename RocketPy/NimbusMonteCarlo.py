@@ -1,9 +1,9 @@
 # This script assigns uncertainties to rocket and environmental parameters and runs Monte Carlo sims accordingly
 # Note: Script assumes all necessary files are in the current working directory
 
-# import os
-# os.chdir(os.path.dirname(os.path.realpath(__file__)))
-# os.chdir("..")
+import os
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+os.chdir("..")
 
 # Import necessary modules
 from rocketpy import Environment, Rocket, Flight, CompareFlights, MonteCarlo, GenericMotor
@@ -42,8 +42,8 @@ NimbusAscent = Rocket(
     radius=0.097,
     mass=35.793,  # This mass value excludes tank and engine masses
     inertia=(58.1, 58.1, 0.231),
-    power_off_drag="dragCurve.csv",
-    power_on_drag="dragCurve.csv",
+    power_off_drag="RocketPy/dragCurve.csv",
+    power_on_drag="RocketPy/dragCurve.csv",
     center_of_mass_without_motor=4.28 - 2.3,
     coordinate_system_orientation="tail_to_nose",
 )
@@ -52,8 +52,8 @@ NimbusDescent = Rocket(
     radius=0.097,
     mass=32.793,
     inertia=(42.2, 42.2, 0.222),
-    power_off_drag="dragCurve.csv",
-    power_on_drag="dragCurve.csv",
+    power_off_drag="RocketPy/dragCurve.csv",
+    power_on_drag="RocketPy/dragCurve.csv",
     center_of_mass_without_motor=4.28 - 2.24,
     coordinate_system_orientation="tail_to_nose",
 )
@@ -99,7 +99,7 @@ canardsA = NimbusAscent.add_trapezoidal_fins(
     span=0.06,
     position=3.04,
     cant_angle=0,
-    airfoil=("NACA0012.csv", "degrees"),
+    airfoil=("RocketPy/NACA0012.csv", "degrees"),
     name="canardsA",
 )
 
@@ -111,7 +111,7 @@ canardsD = NimbusDescent.add_trapezoidal_fins(
     span=0.06,
     position=3.04,
     cant_angle=0,
-    airfoil=("NACA0012.csv", "degrees"),
+    airfoil=("RocketPy/NACA0012.csv", "degrees"),
     name="canardsD",
 )
 
@@ -253,7 +253,7 @@ stochastic_tailD = StochasticTail(
 # Converting Liquid Motor object to a GenericMotor to be compatible with 'Stochastic' objects
 # Note: From the docs, apparently this object is less accurate than Liquid/SolidMotor (verify values)
 GenericThanos_R = GenericMotor(
-    thrust_source="ThanosR.eng",
+    thrust_source="OpenRocket/ThanosR.eng",
     burn_time=5.5,
     chamber_radius=0.085,
     chamber_height=0.635 + 0.369,
