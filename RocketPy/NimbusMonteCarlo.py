@@ -129,11 +129,11 @@ NimbusAscent.set_rail_buttons(
 # Defining functions to trigger parachute deployments
 def drogue_trigger(p, h, y):
     # activate drogue when vz < -10 m/s.
-    return True if y[5] < -10 else False
+    return y[5] < -10
 
 def main_trigger(p, h, y):
     # activate main when vz < 0 m/s and z < 800 m
-    return True if y[5] < 0 and h < 450 else False
+    return y[5] < 0 and h < 450
 
 # Adding main and drogue parachutes to the descent rocket (reefed chute in two configs)
 main = NimbusDescent.add_parachute(
