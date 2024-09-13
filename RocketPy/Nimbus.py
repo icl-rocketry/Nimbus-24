@@ -107,11 +107,11 @@ boattail = Nimbus.add_tail(top_radius=0.097, bottom_radius=0.076, length=0.302, 
 boattail2 = NimbusDescent.add_tail(top_radius=0.097, bottom_radius=0.076, length=0.302, position=0.302)
 
 # rail buttons?
-# Nimbus.set_rail_buttons(
-#     upper_button_position = 2.96,
-#     lower_button_position = 0.36,
-#     angular_position = 60,
-#     )
+Nimbus.set_rail_buttons(
+    upper_button_position = 2.96,
+    lower_button_position = 0.36,
+    angular_position = 60,
+    )
 
 def drogue_trigger(p, h, y):
     # activate drogue when vz < -10 m/s.
@@ -145,8 +145,8 @@ drogue = NimbusDescent.add_parachute(
 if __name__ == "__main__":
 
     # Environment
-    env = Environment(latitude=39.4751, longitude=-8.3764, elevation=78)
-    envtime = datetime.date.today()
+    env = Environment(latitude=39.4751, longitude=-8.3764, elevation=0)
+    envtime = datetime.date.today() + datetime.timedelta(days = 1)
     env.set_date((envtime.year, envtime.month, envtime.day, 12))  # UTC time
     env.set_atmospheric_model(type="Forecast", file="GFS")
 
@@ -161,6 +161,12 @@ if __name__ == "__main__":
     comparison = CompareFlights([Ascent, Descent])
     comparison.trajectories_3d(legend=True)
 
+    print("----- ENV INFO -----")
+    env.all_info()
+    print("----- THANOS INFO -----")
+    Thanos_R.all_info()
+    print("----- Nimbus INFO -----")
+    Nimbus.all_info()
     print("----- ASCENT INFO -----")
     Ascent.all_info()
     print("----- DESCENT INFO -----")

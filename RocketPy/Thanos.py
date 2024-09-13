@@ -72,7 +72,7 @@ Thanos_R = LiquidMotor(
     nozzle_radius=0.025,
     center_of_dry_mass_position=1.0824,
     nozzle_position=0,
-    burn_time=5.5,
+    burn_time=4.65,
     coordinate_system_orientation="nozzle_to_combustion_chamber",
 )
 Thanos_R.add_tank(tank=ox_tank, position=0.8926)
