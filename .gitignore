@@ -1,0 +1,7 @@
+# Ignore output files for Monte Carlo sims
+ascent.errors.txt
+ascent.inputs.txt
+ascent.outputs.txt
+descent.errors.txt
+descent.inputs.txt
+descent.outputs.txt
