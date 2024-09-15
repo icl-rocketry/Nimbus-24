@@ -133,7 +133,7 @@ main = NimbusDescent.add_parachute(
 # add reefing to main parachute with a drogue
 drogue = NimbusDescent.add_parachute(
     name="drogue",
-    cd_s=0.274,
+    cd_s=0.3936,
     trigger=drogue_trigger,
     sampling_rate=100,
     lag=0,
