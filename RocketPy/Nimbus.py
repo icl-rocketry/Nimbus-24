@@ -108,7 +108,7 @@ boattail2 = NimbusDescent.add_tail(top_radius=0.097, bottom_radius=0.076, length
 
 # rail buttons?
 Nimbus.set_rail_buttons(
-    upper_button_position = 2.96,
+    upper_button_position = 2.92,
     lower_button_position = 0.36,
     angular_position = 60,
     )
