@@ -11,7 +11,7 @@ import datetime
 # Rocket
 # Nimbus includes payload and is used on the ascent
 # NimbusEmpty has no payload and is used on the descent
-# the individual payload is not simulated, that's for the guided recovery sim
+# the individual payload + parafoil is not simulated, that's for our guided recovery sim
 Nimbus = Rocket(
     radius=0.097,
     mass=35.793,  # mass is excluding tanks and engine
@@ -24,7 +24,7 @@ Nimbus = Rocket(
 
 NimbusDescent = Rocket(
     radius=0.097,
-    mass=32.793,  # mass is excluding tanks and engine
+    mass=49.892,  # mass is excluding tanks and engine
     inertia=(42.2, 42.2, 0.222),
     power_off_drag="RocketPy/dragCurve.csv",
     power_on_drag="RocketPy/dragCurve.csv",
@@ -37,17 +37,6 @@ Nimbus.add_motor(Thanos_R, position=0)
 nose_cone = Nimbus.add_nose(length=0.35, kind="von karman", position=4.28)
 nose_cone2 = NimbusDescent.add_nose(length=0.35, kind="von karman", position=4.28)
 
-# fins = Nimbus.add_trapezoidal_fins(
-#     n=3,
-#     root_chord=0.322,
-#     tip_chord=0.15,
-#     sweep_length=0.1,
-#     span=0.236,
-#     position=0.32,
-#     cant_angle=0,
-#     radius=0.076,
-# )
-
 fins = Nimbus.add_trapezoidal_fins(
     n=3,
     root_chord=0.28,
@@ -58,17 +47,6 @@ fins = Nimbus.add_trapezoidal_fins(
     cant_angle=0,
     radius=0.076,
 )
-
-# fins2 = NimbusDescent.add_trapezoidal_fins(
-#     n=3,
-#     root_chord=0.322,
-#     tip_chord=0.15,
-#     sweep_length=0.1,
-#     span=0.236,
-#     position=0.32,
-#     cant_angle=0,
-#     radius=0.076,
-# )
 
 fins2 = NimbusDescent.add_trapezoidal_fins(
     n=3,
@@ -108,25 +86,23 @@ boattail2 = NimbusDescent.add_tail(top_radius=0.097, bottom_radius=0.076, length
 
 # rail buttons?
 Nimbus.set_rail_buttons(
-    upper_button_position = 2.92,
+    upper_button_position = 2.82,
     lower_button_position = 0.36,
     angular_position = 60,
     )
 
 def drogue_trigger(p, h, y):
-    # activate drogue when vz < -10 m/s.
-    return True if y[5] < -10 and h < 3000 else False
+    return True if y[5] < 0 else False
 
 def main_trigger(p, h, y):
-    # activate main when vz < 0 m/s and z < 800 m
-    return True if y[5] < 0 and h < 450 else False
+    return True if y[5] < 0 and h < 500 else False
 
 main = NimbusDescent.add_parachute(
     name="main",
     cd_s=29.128,
     trigger=main_trigger,
     sampling_rate=100,
-    lag=0,
+    lag=7,
     noise = (0, 8.3, 0.5),
 )
 
